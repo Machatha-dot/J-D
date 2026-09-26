@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>J&D Shop - Admin Panel</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f8;
+
+            color: #2c3e50;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+
+            background: #17202a;
+
+            color: white;
+
+            padding: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 26px;
+
+            font-weight: bold;
+        }
+
+
+        .admin-label {
+
+            color: #2ecc71;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+            padding: 20px;
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .title h1 {
+
+            font-size: 35px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-box {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.1);
+
+            margin-bottom: 40px;
+        }
+
+
+        .form-box h2 {
+
+            margin-bottom: 20px;
+        }
+
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+        }
+
+
+        textarea {
+
+            height: 120px;
+
+            resize: vertical;
+        }
+
+
+        input:focus,
+        textarea:focus {
+
+            outline: none;
+
+            border-color: #2ecc71;
+        }
+
+
+        .add-product-button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            background: #27ae60;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-size: 17px;
+
+            cursor: pointer;
+        }
+
+
+        .add-product-button:hover {
+
+            background: #219150;
+        }
+
+
+        /* =========================
+           IMAGE PREVIEW
+        ========================== */
+
+        #image-preview {
+
+            display: none;
+
+            width: 180px;
+
+            height: 180px;
+
+            object-fit: cover;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            border: 2px solid #ddd;
+        }
+
+
+        /* =========================
+           PRODUCTS
+        ========================== */
+
+        .products-title {
+
+            margin-bottom: 20px;
+
+            font-size: 28px;
+        }
+
+
+        .products {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 25px;
+        }
+
+
+        .product-card {
+
+            background: white;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.1);
+        }
+
+
+        .product-card img {
+
+            width: 100%;
+
+            height: 220px;
+
+            object-fit: cover;
+        }
+
+
+        .product-info {
+
+            padding: 20px;
+        }
+
+
+        .product-info h3 {
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-description {
+
+            color: #7f8c8d;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .product-price {
+
+            color: #27ae60;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        .delete-button {
+
+            width: 100%;
+
+            padding: 11px;
+
+            background: #e74c3c;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+
+        .delete-button:hover {
+
+            background: #c0392b;
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #7f8c8d;
+        }
+
+
+        /* =========================
+           BACK TO SHOP
+        ========================== */
+
+        .back-button {
+
+            display: block;
+
+            width: 200px;
+
+            margin: 30px auto;
+
+            padding: 13px;
+
+            text-align: center;
+
+            background: #17202a;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+        }
+
+
+        .back-button:hover {
+
+            background: #2ecc71;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            header {
+
+                flex-direction: column;
+
+                gap: 10px;
+
+            }
+
+            main {
+
+                margin: 20px auto;
+
+            }
+
+            .title h1 {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+    <div class="logo">
+        J&D Shop
+    </div>
+
+    <div class="admin-label">
+        ADMIN PANEL
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main>
+
+
+    <div class="title">
+
+        <h1>
+            J&D Shop Admin
+        </h1>
+
+        <p>
+            Add and manage your products
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADD PRODUCT FORM
+    ================================================== -->
+
+    <div class="form-box">
+
+        <h2>
+            Add New Product
+        </h2>
+
+
+        <form id="product-form">
+
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="product-name"
+                placeholder="e.g. Nike Sneakers"
+                required
+            >
+
+
+
+            <label>
+                Price (KSh)
+            </label>
+
+            <input
+                type="number"
+                id="product-price"
+                placeholder="e.g. 3500"
+                min="1"
+                required
+            >
+
+
+
+            <label>
+                Product Description
+            </label>
+
+            <textarea
+                id="product-description"
+                placeholder="Describe your product..."
+                required
+            ></textarea>
+
+
+
+            <label>
+                Product Picture
+            </label>
+
+            <input
+                type="file"
+                id="product-image"
+                accept="image/*"
+                required
+            >
+
+
+
+            <!-- IMAGE PREVIEW -->
+
+            <img
+                id="image-preview"
+                alt="Product Preview"
+            >
+
+
+
+            <button
+                type="submit"
+                class="add-product-button"
+            >
+                ➕ Add Product
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CURRENT PRODUCTS
+    ================================================== -->
+
+    <h2 class="products-title">
+        Your Products
+    </h2>
+
+
+    <div
+        class="products"
+        id="admin-products"
+    ></div>
+
+
+
+    <!-- BACK TO SHOP -->
+
+    <a
+        href="index.html"
+        class="back-button"
+    >
+        🛍️ View J&D Shop
+    </a>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+
+    /* =====================================================
+       GET PRODUCTS FROM LOCAL STORAGE
+    ====================================================== */
+
+    let products =
+        JSON.parse(
+            localStorage.getItem("jdShopProducts")
+        ) || [];
+
+
+
+    /* =====================================================
+       IMAGE PREVIEW
+    ====================================================== */
+
+    document
+        .getElementById("product-image")
+        .addEventListener(
+            "change",
+            function(event) {
+
+                const file =
+                    event.target.files[0];
+
+
+                if (!file) {
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function(e) {
+
+                        const preview =
+                            document.getElementById(
+                                "image-preview"
+                            );
+
+
+                        preview.src =
+                            e.target.result;
+
+
+                        preview.style.display =
+                            "block";
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+
+
+    /* =====================================================
+       ADD PRODUCT
+    ====================================================== */
+
+    document
+        .getElementById("product-form")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document
+                        .getElementById("product-name")
+                        .value
+                        .trim();
+
+
+                const price =
+                    Number(
+                        document
+                            .getElementById("product-price")
+                            .value
+                    );
+
+
+                const description =
+                    document
+                        .getElementById("product-description")
+                        .value
+                        .trim();
+
+
+                const imageFile =
+                    document
+                        .getElementById("product-image")
+                        .files[0];
+
+
+                if (!imageFile) {
+
+                    alert(
+                        "Please select a product picture."
+                    );
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function(e) {
+
+
+                        const newProduct = {
+
+                            id:
+                                Date.now(),
+
+                            name:
+                                name,
+
+                            price:
+                                price,
+
+                            description:
+                                description,
+
+                            image:
+                                e.target.result
+
+                        };
+
+
+                        products.push(
+                            newProduct
+                        );
+
+
+                        localStorage.setItem(
+                            "jdShopProducts",
+                            JSON.stringify(products)
+                        );
+
+
+                        alert(
+                            "Product added successfully!"
+                        );
+
+
+                        document
+                            .getElementById("product-form")
+                            .reset();
+
+
+                        document
+                            .getElementById("image-preview")
+                            .style.display =
+                            "none";
+
+
+                        displayProducts();
+
+                    };
+
+
+                reader.readAsDataURL(
+                    imageFile
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       DISPLAY PRODUCTS
+    ====================================================== */
+
+    function displayProducts() {
+
+        const container =
+            document.getElementById(
+                "admin-products"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (products.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    You have not added any products yet.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        products.forEach(
+            function(product) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "product-card";
+
+
+                card.innerHTML = `
+
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                    >
+
+
+                    <div class="product-info">
+
+                        <h3>
+                            ${product.name}
+                        </h3>
+
+
+                        <p class="product-description">
+                            ${product.description}
+                        </p>
+
+
+                        <p class="product-price">
+
+                            KSh
+                            ${product.price.toLocaleString()}
+
+                        </p>
+
+
+                        <button
+                            class="delete-button"
+                            onclick="deleteProduct(${product.id})"
+                        >
+                            🗑 Delete Product
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       DELETE PRODUCT
+    ====================================================== */
+
+    function deleteProduct(id) {
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to delete this product?"
+            );
+
+
+        if (!confirmation) {
+
+            return;
+
+        }
+
+
+        products =
+            products.filter(
+                product =>
+                    product.id !== id
+            );
+
+
+        localStorage.setItem(
+            "jdShopProducts",
+            JSON.stringify(products)
+        );
+
+
+        displayProducts();
+
+    }
+
+
+
+    /* =====================================================
+       INITIAL DISPLAY
+    ====================================================== */
+
+    displayProducts();
+
+</script>
+
+
+</body>
+
+</html>
